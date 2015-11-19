@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    <string name="app_name">Phone Checker</string>
+    <string name="join_description">Gruppe beitreten</string>
+    <string name="creat_description">Neue Gruppe</string>
+    <string name="username">Nutzername</string>
+    <string name="name">Name</string>
+    <string name="login">Anmelden</string>
+    <string name="groupname">Gruppenname</string>
+    <string name="password">Passwort</string>
+    <string name="newgroupname">Neue Gruppe</string>
+</resources>

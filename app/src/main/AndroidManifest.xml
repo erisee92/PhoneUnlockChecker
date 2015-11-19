@@ -15,6 +15,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".JoinActivity">
+
+        </activity>
+
+        <activity android:name=".Activity">
+
+        </activity>
+
+
+
     </application>
 
 </manifest>
