@@ -8,4 +8,7 @@
     <string name="groupname">Groupename</string>
     <string name="password">Password</string>
     <string name="newgroupname">New Groupname</string>
+    <string name="sessioncontrol_1">Start</string>
+    <string name="sessioncontrol_2">Stop</string>
+    <string name="deletegroup">Delete</string>
 </resources>

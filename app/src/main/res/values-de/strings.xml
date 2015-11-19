@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>    <string name="app_name">Phone Checker</string>
+<resources>
+    <string name="app_name">Phone Checker</string>
     <string name="join_description">Gruppe beitreten</string>
     <string name="creat_description">Neue Gruppe</string>
     <string name="username">Nutzername</string>
@@ -8,4 +9,7 @@
     <string name="groupname">Gruppenname</string>
     <string name="password">Passwort</string>
     <string name="newgroupname">Neue Gruppe</string>
+    <string name="sessioncontrol_1">Starten</string>
+    <string name="sessioncontrol_2">Stoppen</string>
+    <string name="deletegroup">Löschen</string>
 </resources>

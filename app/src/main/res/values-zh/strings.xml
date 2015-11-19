@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Phone Checker</string>
+    <string name="join_description">加入小组</string>
+    <string name="creat_description">成立小组</string>
+    <string name="username">用户名</string>
+    <string name="name">姓名</string>
+    <string name="login">确认</string>
+    <string name="groupname">小组名称</string>
+    <string name="password">密码</string>
+    <string name="newgroupname">新建小组名</string>
+    <string name="sessioncontrol_1">开始</string>
+    <string name="sessioncontrol_2">结束</string>
+    <string name="deletegroup">删除</string>
+
+</resources>
