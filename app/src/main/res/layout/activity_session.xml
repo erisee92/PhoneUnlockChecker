@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:orientation="vertical" android:layout_height="match_parent">
+
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Admin"
         android:id="@+id/sessionadmin"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:textSize="@dimen/fab_size_normal"/>
 
@@ -18,32 +17,35 @@
         android:id="@+id/sessionlist"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_below="@+id/sessionadmin"
         android:columnWidth="5dp"
         android:numColumns="2"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
-        android:stretchMode="columnWidth"
-        android:gravity="left" />
+        android:stretchMode="columnWidth"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sessioncontrol_1"
+            android:id="@+id/sessionbutton"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deletegroup"
+            android:id="@+id/deletegroup"
+            android:layout_marginStart="28dp"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sessioncontrol_1"
-        android:id="@+id/sessionbutton"
-        android:layout_below="@id/sessionlist"
-        android:layout_centerHorizontal="true"
-     />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/deletegroup"
-        android:id="@+id/deletegroup"
-        android:layout_below="@id/sessionlist"
-
-        android:layout_toEndOf="@id/sessionbutton"
-        android:layout_marginLeft="28dp"/>
+    </LinearLayout>
 
 
-</RelativeLayout>
+
+
+
+
+
+</LinearLayout>

@@ -6,9 +6,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/name"
+        android:hint="@string/name"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/loginName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp" />
@@ -17,19 +17,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/username"
+        android:hint="@string/username"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/loginUsername"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_below="@+id/loginName"
+        android:layout_alignStart="@+id/loginName" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/loginbutton"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/loginUsername"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp" />
 
