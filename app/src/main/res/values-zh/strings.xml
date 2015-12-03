@@ -12,5 +12,12 @@
     <string name="sessioncontrol_1">开始</string>
     <string name="sessioncontrol_2">结束</string>
     <string name="deletegroup">删除</string>
+    <string name="loginerror">请输入姓名与用户名！</string>
+    <string name="app_name_join">加入小组</string>
+    <string name="app_name_list">当前活动小组</string>
+    <string name="app_name_login">登录</string>
+    <string name="app_name_main">狗仔队</string>
+    <string name="app_name_newGroup">新建组</string>
+    <string name="app_name_session">检测中</string>
 
 </resources>
