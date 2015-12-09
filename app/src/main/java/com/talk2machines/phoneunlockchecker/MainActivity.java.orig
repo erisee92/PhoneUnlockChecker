@@ -1,9 +1,14 @@
 package com.talk2machines.phoneunlockchecker;
 
+<<<<<<< HEAD
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+=======
 import android.content.Context;
 import android.content.Intent;
+>>>>>>> UI
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +20,10 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
+<<<<<<< HEAD
+=======
 
+>>>>>>> UI
 
 public class MainActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -49,6 +57,23 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("PUC", 0);
         context = getApplicationContext();
+<<<<<<< HEAD
+/*        if(!prefs.getString("REG_FROM","").isEmpty()){
+            Fragment user = new UserFragment();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, user);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+        }else  */
+        if(!prefs.getString("REG_ID", "").isEmpty()){
+            Fragment reg = new LoginFragment();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, reg);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+=======
 
         if(!prefs.getString("REG_ID", "").isEmpty()){
 
@@ -68,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
+>>>>>>> UI
 
         }else if(checkPlayServices()){
 
@@ -79,8 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> UI
     /**
      * Check the device to make sure it has the Google Play Services APK. If
      * it doesn't, display a dialog that allows users to download the APK from
@@ -110,13 +139,21 @@ public class MainActivity extends AppCompatActivity {
                 if (gcm == null) {
                     gcm = GoogleCloudMessaging.getInstance(context);
                     regid = gcm.register(SENDER_ID);
+<<<<<<< HEAD
+                    Log.e("RegId",regid);
+=======
                     Log.e("RegId", regid);
+>>>>>>> UI
                     SharedPreferences.Editor edit = prefs.edit();
                     edit.putString("REG_ID", regid);
                     edit.commit();
                 }
 
+<<<<<<< HEAD
+                return  regid;
+=======
                 return regid;
+>>>>>>> UI
 
             } catch (IOException ex) {
                 Log.e("Error", ex.getMessage());
@@ -124,6 +161,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+<<<<<<< HEAD
+        @Override
+        protected void onPostExecute(String json) {
+            Fragment reg = new LoginFragment();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, reg);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+=======
     }
 
 
@@ -160,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
 
         super.onPause();
+>>>>>>> UI
     }
 
 

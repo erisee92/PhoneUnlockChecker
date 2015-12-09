@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/groupname"
+        android:id="@+id/gruppename"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="28dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Admin:"
+        android:id="@+id/beschreibung"
+        android:layout_below="@+id/gruppename"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:textSize="25dp"
+        />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="260dp"
+        android:id="@+id/gruppelist"
+        android:layout_below="@+id/beschreibung"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:text="@string/password"
+        android:id="@+id/loginpassword"
+        android:layout_below="@+id/gruppelist"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/join_description"
+        android:id="@+id/joinbutton"
+        android:layout_below="@+id/gruppelist"
+        android:layout_toEndOf="@+id/loginpassword" />
+
+
+</RelativeLayout>
