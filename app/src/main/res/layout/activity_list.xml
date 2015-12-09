@@ -11,14 +11,21 @@
          />
 
 
-<android.support.design.widget.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/fab"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="16dp"></android.support.design.widget.FloatingActionButton>
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src = "@drawable/ic_add_white_24dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:borderWidth="0dp"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorAccent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp" />
 
 
 </RelativeLayout>

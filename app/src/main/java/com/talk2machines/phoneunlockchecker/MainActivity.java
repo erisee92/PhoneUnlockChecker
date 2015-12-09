@@ -30,17 +30,6 @@ public class MainActivity extends AppCompatActivity {
     String logid;
 
 
-
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static final String TAG = "MainActivity";
-    public final static String SERVER_ADDR = "eboege.no-ip.org:3000";
-    String SENDER_ID = "142896340334";
-
-    GoogleCloudMessaging gcm;
-    SharedPreferences prefs;
-    Context context;
-    String regid;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         if(!prefs.getString("REG_ID", "").isEmpty()){
 
             //open activity, hier wird sich entschieden, login oder list anzeigen
-            if(!prefs.getString("LOG_ID", "").isEmpty()){
+            if(prefs.getString("LOG_ID", "").isEmpty()){
 
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, LoginActivity.class);
@@ -123,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 return "Fails";
 
             }
+        }
+        @Override
+        protected void onPostExecute(String json) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
