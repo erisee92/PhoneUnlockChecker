@@ -3,8 +3,9 @@ package com.talk2machines.phoneunlockchecker;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class JoinActivity extends Activity {
+public class JoinActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
