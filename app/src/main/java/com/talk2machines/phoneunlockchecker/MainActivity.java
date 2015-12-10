@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     Context context;
 
     String logid;
-
 
 
     @Override
@@ -112,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 return "Fails";
 
             }
+        }
+        @Override
+        protected void onPostExecute(String json) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         @Override

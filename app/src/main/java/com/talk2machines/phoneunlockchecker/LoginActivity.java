@@ -1,19 +1,29 @@
 package com.talk2machines.phoneunlockchecker;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.talk2machines.phoneunlockchecker.api.User;
 
-public class LoginActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    SharedPreferences prefs;
+
+public class LoginActivity extends AppCompatActivity{
+
+        public static final String REQUEST_TAG = "LoginActivity";
+        ProgressDialog progress;
+        SharedPreferences prefs;
+        String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,41 +35,59 @@ public class LoginActivity extends AppCompatActivity {
         final EditText lun = (EditText) findViewById(R.id.loginUsername);
         final Button lb = (Button) findViewById(R.id.loginbutton);
 
+
+        progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+
+        prefs = getSharedPreferences("PUC", 0);
+        final String reg_id=prefs.getString("REG_ID", "");
+
+
         lb.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                // test, ob die name und username schon eingetippen sind.
-                if(ln.getText().toString().equals("") || lun.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), R.string.loginerror, Toast.LENGTH_LONG).show();
-                }else{
-                //schicken Name und Username an Server weiter
-                    //TODO  import user.class schiecken datei an server
+                    // test, ob die name und username schon eingetippen sind.
+                    if(ln.getText().toString().equals("") || lun.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext(), R.string.loginerror, Toast.LENGTH_LONG).show();
+                    }else{
+                        progress.show();
+                        User newUser = new User(ln.getText().toString().trim(),lun.getText().toString().trim(), reg_id);
+                        newUser.login(getApplicationContext(), new User.VolleyCallback() {
+                            @Override
+                            public void onSuccess(JSONObject result) {
+                                Log.i("Login", result.toString());
+                                try {
+                                    userid = result.getString("id");
+                                    //test ob ein userid zurückbekommen, wenn ja, speichern userid in sharePreferences, und leitet zu ListActivity
+                                    if(userid !=  null ){
+                                        Log.i("Login", userid);
+                                        prefs = getSharedPreferences("PUC", 0);
+                                        SharedPreferences.Editor edit = prefs.edit();
+                                        edit.putString("LOG_ID", userid);
+                                        edit.commit();
 
-                //test ob ein userid zurückbekommen, wenn ja, speichern userid in sharePreferences, und leitet zu ListActivity
-                String userid = "du bis kacke";
-                if(userid !=  null ){
+                                        Intent intent = new Intent();
+                                        intent.setClass(LoginActivity.this, ListActivity.class);
+                                        startActivity(intent);
+                                        finish();
 
-                    prefs = getSharedPreferences("PUC", 0);
-                    SharedPreferences.Editor edit = prefs.edit();
-                    edit.putString("REG_ID", userid);
-                    edit.commit();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                progress.hide();
+                            }
+                        });
 
-                    Intent intent = new Intent();
-                    intent.setClass(LoginActivity.this, ListActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }
-
-                }
-
+                    }
             }
         });
 
 
     }
 
-
-        @Override
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -93,7 +121,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
 
     }
 
