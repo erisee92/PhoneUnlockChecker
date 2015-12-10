@@ -3,6 +3,7 @@ package com.talk2machines.phoneunlockchecker;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.talk2machines.phoneunlockchecker.api.Session;
@@ -28,7 +29,7 @@ public class ListActivity extends AppCompatActivity {
         session.list(getApplicationContext(), new Session.VolleyCallback() {
             @Override
             public void onSuccess(JSONArray result) {
-                
+                Log.i("",result.toString());
             }
         });
 

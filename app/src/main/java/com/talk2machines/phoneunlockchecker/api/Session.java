@@ -27,7 +27,7 @@ public class Session {
     public JSONArray list(Context mContext, final VolleyCallback callback) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(mContext);
-        String url ="http://test-erik-boege.c9.io/users";
+        String url ="http://test-erik-boege.c9.io/sessions";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
