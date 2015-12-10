@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.talk2machines.phoneunlockchecker.api.CustomVolleyRequestQueue;
+import com.talk2machines.phoneunlockchecker.api.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +28,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class LoginActivity extends AppCompatActivity implements Response.Listener,Response.ErrorListener {
+public class LoginActivity extends AppCompatActivity{
 
         public static final String REQUEST_TAG = "LoginActivity";
-        private RequestQueue mQueue;
         ProgressDialog progress;
         SharedPreferences prefs;
+        String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         setContentView(R.layout.activity_login);
 
         final EditText ln = (EditText) findViewById(R.id.loginName);
-        final EditText lu = (EditText) findViewById(R.id.loginUsername);
+        final EditText lun = (EditText) findViewById(R.id.loginUsername);
         final Button lb = (Button) findViewById(R.id.loginbutton);
 
 
@@ -54,68 +55,49 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         final String reg_id=prefs.getString("REG_ID", "");
 
 
-        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        String url = "http://test-erik-boege.c9.io/users";
-        final StringRequest stringPost = new StringRequest(Request.Method.POST,url,this,this){
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("name", ln.getText().toString().trim());
-                params.put("username", lu.getText().toString().trim());
-                params.put("reg_id",reg_id);
-                return params;
-            }
-        };
-
         lb.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                mQueue.add(stringPost);
-                progress.show();
+                    // test, ob die name und username schon eingetippen sind.
+                    if(ln.getText().toString().equals("") || lun.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext(), R.string.loginerror, Toast.LENGTH_LONG).show();
+                    }else{
+                        progress.show();
+                        User newUser = new User(ln.getText().toString().trim(),lun.getText().toString().trim(), reg_id);
+                        newUser.login(getApplicationContext(), new User.VolleyCallback() {
+                            @Override
+                            public void onSuccess(JSONObject result) {
+                                Log.i("Login", result.toString());
+                                try {
+                                    userid = result.getString("id");
+                                    //test ob ein userid zurückbekommen, wenn ja, speichern userid in sharePreferences, und leitet zu ListActivity
+                                    if(userid !=  null ){
+                                        Log.i("Login", userid);
+                                        prefs = getSharedPreferences("PUC", 0);
+                                        SharedPreferences.Editor edit = prefs.edit();
+                                        edit.putString("LOG_ID", userid);
+                                        edit.commit();
+
+                                        Intent intent = new Intent();
+                                        intent.setClass(LoginActivity.this, ListActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                progress.hide();
+                            }
+                        });
+
+                    }
             }
         });
 
 
     }
 
-
     @Override
-    public void onErrorResponse(VolleyError error) {
-        Log.e(REQUEST_TAG, error.toString());
-    }
-
-    @Override
-    public void onResponse(Object response) {
-        Log.i("Response",response.toString());
-
-        try {
-            JSONObject JObj = new JSONObject(response.toString());
-            String resp = JObj.getString("response");
-            String regid = JObj.getString("id");
-            Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putString("LOG_ID", regid);
-            edit.commit();
-            if (resp.equals("Sucessfully Registered")){
-                Intent intent = new Intent();
-                intent.setClass(LoginActivity.this, ListActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        progress.hide();
-    }
-
-
-        @Override
     protected void onStart() {
         super.onStart();
 
@@ -149,9 +131,7 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
     @Override
     protected void onStop() {
         super.onStop();
-        if (mQueue != null) {
-            mQueue.cancelAll(REQUEST_TAG);
-        }
+
     }
 
 

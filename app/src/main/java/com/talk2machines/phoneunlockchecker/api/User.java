@@ -1,9 +1,21 @@
 package com.talk2machines.phoneunlockchecker.api;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Erik on 23.11.2015.
@@ -13,6 +25,7 @@ public class User {
     static String json = "";
     String name, username, reg_id;
 
+
     public User(String na,String una, String rId){
         this.name = na;
         this.username = una;
@@ -20,16 +33,53 @@ public class User {
         Log.i("API",name+" "+username+" "+reg_id);
     }
 
-    public JSONObject login() {
-        // try parse the string to a JSON object
-        json += "{name:"+name+",username:"+username+",reg_id:"+reg_id+"}";
-        try {
-            jObj = new JSONObject(json);
-            Log.i("API",jObj.toString());
-        } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
-        }
-        // return JSON String
+    public JSONObject login(Context mContext, final VolleyCallback callback) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        String url ="http://test-erik-boege.c9.io/users";
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("Response", response);
+
+                        try {
+                            JSONObject JObj = new JSONObject(response);
+                            //String resp = JObj.getString("response");
+                            callback.onSuccess(JObj);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("User", error.toString());
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", name);
+                params.put("username", username);
+                params.put("reg_id",reg_id);
+                return params;
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
         return jObj;
+    }
+
+    public interface VolleyCallback{
+        void onSuccess(JSONObject result);
     }
 }

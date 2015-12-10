@@ -12,4 +12,11 @@
     <string name="sessioncontrol_1">Starten</string>
     <string name="sessioncontrol_2">Stoppen</string>
     <string name="deletegroup">Löschen</string>
+    <string name="loginerror">Bitte Name und Nutzername eingeben!</string>
+    <string name="app_name_join">an Gruppe teilnehmen</string>
+    <string name="app_name_list">Aktive Gruppe</string>
+    <string name="app_name_login">Anmelden</string>
+    <string name="app_name_main">Überwacher</string>
+    <string name="app_name_newGroup">Neu Gruppe anlegen</string>
+    <string name="app_name_session">Los geht´s</string>
 </resources>
