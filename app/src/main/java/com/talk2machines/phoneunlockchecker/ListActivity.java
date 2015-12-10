@@ -1,27 +1,28 @@
 package com.talk2machines.phoneunlockchecker;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 
 /**
  * Created by lin_n on 26.11.2015.
  */
 public class ListActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list);
 
-        Log.i("List","Bla");
+        final ListView gl = (ListView) findViewById(R.id.gruppelist);
+        final FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+
+
 
 
     }
-
 
     @Override
     protected void onStart() {
