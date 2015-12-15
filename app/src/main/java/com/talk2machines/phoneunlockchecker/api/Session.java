@@ -12,6 +12,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Erik on 10.12.2015.
@@ -20,9 +23,23 @@ public class Session {
 
     static JSONArray jObj = null;
 
-    public Session() {
+    public String name;
+    public String admin;
 
+    public Session(String name, String admin) {
+        this.name = name;
+        this.admin = admin;
     }
+
+    public Session(JSONObject object){
+        try {
+            this.name = object.getString("name");
+            this.admin = object.getString("admin");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public JSONArray list(Context mContext, final VolleyCallback callback) {
         // Instantiate the RequestQueue.
@@ -50,6 +67,19 @@ public class Session {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
         return jObj;
+    }
+
+    public static ArrayList<Session> fromJson(JSONArray jsonObjects) {
+        ArrayList<Session> sessions = new ArrayList<Session>();
+        for (int i = 0; i < jsonObjects.length(); i++) {
+            try {
+                sessions.add(new Session(jsonObjects.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return sessions;
+
     }
 
 

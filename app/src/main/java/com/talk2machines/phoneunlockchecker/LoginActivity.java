@@ -1,8 +1,10 @@
 package com.talk2machines.phoneunlockchecker;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,10 +22,9 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity{
 
-        public static final String REQUEST_TAG = "LoginActivity";
-        ProgressDialog progress;
-        SharedPreferences prefs;
-        String userid;
+    ProgressDialog progress;
+    SharedPreferences prefs;
+    String userid, response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,12 @@ public class LoginActivity extends AppCompatActivity{
                             public void onSuccess(JSONObject result) {
                                 Log.i("Login", result.toString());
                                 try {
+                                    response = result.getString("response");
+                                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
                                     userid = result.getString("id");
                                     //test ob ein userid zurückbekommen, wenn ja, speichern userid in sharePreferences, und leitet zu ListActivity
                                     if(userid !=  null ){
@@ -70,9 +77,29 @@ public class LoginActivity extends AppCompatActivity{
                                         Intent intent = new Intent();
                                         intent.setClass(LoginActivity.this, ListActivity.class);
                                         startActivity(intent);
+
+                                        //TODO move next block to other activity or service
+                                        PackageManager pm  = LoginActivity.this.getPackageManager();
+                                        ComponentName componentName = new ComponentName(LoginActivity.this, UnlockReceiver.class);
+                                        pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                                PackageManager.DONT_KILL_APP);
+                                        Toast.makeText(getApplicationContext(), "activated", Toast.LENGTH_LONG).show();
+
                                         finish();
 
                                     }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                progress.hide();
+                            }
+
+                            @Override
+                            public void onError(JSONObject result) {
+                                Log.i("Login", result.toString());
+                                try {
+                                    response = result.getString("response");
+                                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
