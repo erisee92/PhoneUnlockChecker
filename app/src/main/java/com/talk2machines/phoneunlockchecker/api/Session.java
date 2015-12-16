@@ -26,9 +26,8 @@ public class Session {
     public String name;
     public String admin;
 
-    public Session(String name, String admin) {
-        this.name = name;
-        this.admin = admin;
+    public Session() {
+
     }
 
     public Session(JSONObject object){
@@ -41,7 +40,7 @@ public class Session {
     }
 
 
-    public JSONArray list(Context mContext, final VolleyCallback callback) {
+    public static JSONArray list(Context mContext, final VolleyCallback callback) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(mContext);
         String url ="http://test-erik-boege.c9.io/sessions";

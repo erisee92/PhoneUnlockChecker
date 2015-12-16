@@ -2,13 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gruppelist"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-         />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_to_reload">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gruppelist"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 
     <android.support.design.widget.FloatingActionButton

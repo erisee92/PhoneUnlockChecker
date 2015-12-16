@@ -18,9 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ListActivity" />
+        <activity android:name=".CreatGroupActivity"
+            android:parentActivityName="com.talk2machines.phoneunlockchecker.ListActivity">
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.talk2machines.phoneunlockchecker.ListActivity" />
+        </activity>
         <activity android:name=".JoinActivity" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".LoginActivity"/>
+
 
 
         <receiver android:name=".UnlockReceiver">
