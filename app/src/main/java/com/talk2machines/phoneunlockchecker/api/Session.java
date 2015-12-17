@@ -21,10 +21,12 @@ import java.util.ArrayList;
  */
 public class Session {
 
-    static JSONArray jObj = null;
+    static JSONArray jArr = null;
+    static JSONObject jObj = null;
 
     public String name;
     public String admin;
+    public String id;
 
     public Session() {
 
@@ -34,6 +36,7 @@ public class Session {
         try {
             this.name = object.getString("name");
             this.admin = object.getString("admin");
+            this.id = object.getString("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -51,7 +54,35 @@ public class Session {
                     public void onResponse(String response) {
                         Log.i("Response", response);
                         try {
-                            JSONArray JObj = new JSONArray(response);
+                            JSONArray jArr = new JSONArray(response);
+                            callback.onSuccess(jArr);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("User", error.toString());
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        return jArr;
+    }
+
+    public static JSONObject getSession(String id, Context mContext, final VolleyCallback callback) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        String url ="http://test-erik-boege.c9.io/sessions/"+id;
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("Response", response);
+                        try {
+                            JSONObject JObj = new JSONObject(response);
                             callback.onSuccess(JObj);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -84,6 +115,7 @@ public class Session {
 
     public interface VolleyCallback{
         void onSuccess(JSONArray result);
+        void onSuccess(JSONObject result);
     }
 
 }

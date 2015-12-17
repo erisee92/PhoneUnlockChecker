@@ -85,7 +85,14 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
-                intent.setClass(ListActivity.this, NumberUnlocks.class);
+                intent.setClass(ListActivity.this, JoinActivity.class);
+
+                TextView sessionIdTV = (TextView)view.findViewById(R.id.s_id);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("s_id",sessionIdTV.getText().toString());
+
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -107,6 +114,11 @@ public class ListActivity extends AppCompatActivity {
                 ArrayList<Session> newSessions = Session.fromJson(result);
                 adapter.addAll(newSessions);
                 mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onSuccess(JSONObject result) {
+                Log.i("List","something strange happened");
             }
         });
     }
@@ -240,9 +252,11 @@ class SessionAdapter extends ArrayAdapter<Session> {
         }
         TextView sName = (TextView) convertView.findViewById(R.id.s_name);
         TextView sAdmin = (TextView) convertView.findViewById(R.id.s_admin);
+        TextView sId = (TextView) convertView.findViewById(R.id.s_id);
 
         sName.setText(session.name);
         sAdmin.setText(session.admin);
+        sId.setText(session.id);
 
         return convertView;
     }
