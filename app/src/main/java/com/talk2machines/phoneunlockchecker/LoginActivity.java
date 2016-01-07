@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity{
 
     ProgressDialog progress;
     SharedPreferences prefs;
-    String userid, response;
+    String userid, response, username, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,12 +90,19 @@ public class LoginActivity extends AppCompatActivity{
                     }
                     try {
                         userid = result.getString("id");
+                        username = result.getString("username");
+                        name = result.getString("name");
                         //test ob ein userid zurückbekommen, wenn ja, speichern userid in sharePreferences, und leitet zu ListActivity
                         if(userid !=  null ){
                             Log.i("Login", userid);
                             prefs = getSharedPreferences("PUC", 0);
                             SharedPreferences.Editor edit = prefs.edit();
                             edit.putString("LOG_ID", userid);
+                            edit.apply();
+                            edit.putString("LOG_USERNAME", username);
+                            edit.apply();
+                            edit.putString("LOG_NAME", name);
+
                             edit.commit();
 
                             Intent intent = new Intent();

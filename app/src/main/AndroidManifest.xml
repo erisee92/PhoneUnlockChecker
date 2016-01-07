@@ -39,6 +39,7 @@
 
         <activity android:name=".ListActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".SessionActivity" />
 
         <receiver android:name=".UnlockReceiver">
             <intent-filter android:enabled="false">
