@@ -19,4 +19,8 @@
     <string name="app_name_main">Überwacher</string>
     <string name="app_name_newGroup">Neu Gruppe anlegen</string>
     <string name="app_name_session">Los geht´s</string>
+    <string name="logout">Logout</string>
+    <string name="loading">Lade...</string>
+    <string name="ok">ok</string>
+    <string name="cancel">Cancel</string>
 </resources>

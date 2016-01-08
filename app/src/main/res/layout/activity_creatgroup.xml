@@ -6,9 +6,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/newgroupname"
+        android:hint="@string/newgroupname"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/new_group_name"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp" />
@@ -17,19 +17,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/password"
+        android:hint="@string/password"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/group_password"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_below="@+id/new_group_name"
+        android:layout_alignStart="@+id/new_group_name" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/creat_description"
-        android:id="@+id/loginbutton"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp" />
+        android:id="@+id/newGroup"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/group_password"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

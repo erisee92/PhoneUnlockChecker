@@ -22,7 +22,8 @@
         android:id="@+id/loginUsername"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/loginName"
-        android:layout_alignStart="@+id/loginName" />
+        android:layout_alignStart="@+id/loginName"
+        android:imeOptions="actionDone"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -31,12 +32,7 @@
         android:id="@+id/loginbutton"
         android:layout_below="@+id/loginUsername"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp" />
-
-
-
-
-
+        android:layout_marginTop="25dp" />
 
 
 </RelativeLayout>
