@@ -31,3 +31,6 @@ proguard/
 # Log Files
 *.log
 
+# volley
+volley/
+
