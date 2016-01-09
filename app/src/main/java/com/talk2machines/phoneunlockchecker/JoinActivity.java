@@ -1,23 +1,20 @@
 package com.talk2machines.phoneunlockchecker;
 
 
-import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +29,10 @@ import java.util.ArrayList;
 
 public class JoinActivity extends AppCompatActivity {
 
+    ProgressDialog progress;
+    SharedPreferences prefs;
+    String sessionid, response;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -42,8 +43,72 @@ public class JoinActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        progress = new ProgressDialog(this);
+        progress.setMessage(getApplicationContext().getResources().getString(R.string.loading));
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+
+        prefs = getSharedPreferences("PUC", 0);
+
         Bundle bunde = this.getIntent().getExtras();
-        String s_id = bunde.getString("s_id");
+        final String s_id = bunde.getString("s_id");
+
+        Button joinBtn = (Button) findViewById(R.id.joinbutton);
+        final TextView textPW = (TextView) findViewById(R.id.loginpassword);
+
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progress.show();
+                Session.login(prefs.getString("REG_ID", ""),s_id, prefs.getString("LOG_NAME", ""), textPW.getText().toString(), getApplicationContext(), new Session.VolleyCallback2() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        Log.i("Login", result.toString());
+
+
+                        try {
+                            response = result.getString("response");
+                            //test ob erfolgreich, wenn ja, speichern sessionid in sharePreferences, und leitet zu SessionActivity
+                            if(response.equals("Updated Sucessfully") ){
+                                prefs = getSharedPreferences("PUC", 0);
+                                SharedPreferences.Editor edit = prefs.edit();
+                                edit.putString("SESSION_ID", s_id);
+                                edit.apply();
+                                edit.putBoolean("ADMIN",false);
+                                edit.commit();
+                                progress.hide();
+                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent();
+                                intent.setClass(JoinActivity.this, SessionActivity.class);
+                                startActivity(intent);
+                            } else if(response.equals("Wrong Password")){
+                                progress.hide();
+                                Toast.makeText(getApplicationContext(), R.string.wrongpw, Toast.LENGTH_SHORT).show();
+                            } else {
+                                progress.hide();
+                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progress.hide();
+                    }
+
+                    @Override
+                    public void onError(JSONObject result) {
+                        Log.i("Login", result.toString());
+                        try {
+                            response = result.getString("response");
+                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progress.hide();
+                    }
+                });
+            }
+        });
 
         Session.getSession(s_id, getApplicationContext(), new Session.VolleyCallback(){
 

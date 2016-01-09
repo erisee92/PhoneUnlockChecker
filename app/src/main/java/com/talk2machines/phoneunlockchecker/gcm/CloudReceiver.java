@@ -15,11 +15,12 @@ import android.util.Log;
 public class CloudReceiver  extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("GCMReceiver", "Received: ");
+        Log.i("GCMReceiver", "Received");
         Bundle extras = intent.getExtras();
         Intent msgrcv = new Intent("Msg");
         msgrcv.putExtra("msgType", extras.getString("msgType"));
-        msgrcv.putExtra("msgType", extras.getString("body"));
+        msgrcv.putExtra("msgHead", extras.getString("msgHead"));
+        msgrcv.putExtra("msgBody", extras.getString("msgBody"));
 
         LocalBroadcastManager.getInstance(context).sendBroadcast(msgrcv);
         ComponentName comp = new ComponentName(context.getPackageName(),CloudService.class.getName());

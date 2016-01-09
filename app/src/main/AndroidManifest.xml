@@ -54,8 +54,10 @@
         </activity>
 
 
-        <receiver android:name=".UnlockReceiver">
-            <intent-filter android:enabled="false">
+        <receiver android:name=".UnlockReceiver"
+            android:enabled="false">
+            <intent-filter
+                android:enabled="false">
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>

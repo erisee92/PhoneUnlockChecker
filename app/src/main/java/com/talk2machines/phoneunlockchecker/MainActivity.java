@@ -37,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         prefs = getSharedPreferences("PUC", 0);
+        Log.i("All Prefs", prefs.getAll().toString());
         context = getApplicationContext();
 
         if(!prefs.getString("REG_ID", "").isEmpty()){
+
+            Log.e("RegId", prefs.getString("REG_ID", ""));
 
             //open activity, hier wird sich entschieden, login oder list anzeigen
             if(prefs.getString("LOG_ID", "").isEmpty()){
