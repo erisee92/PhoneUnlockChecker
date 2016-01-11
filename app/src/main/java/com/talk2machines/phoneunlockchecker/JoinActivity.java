@@ -74,6 +74,8 @@ public class JoinActivity extends AppCompatActivity {
                                 SharedPreferences.Editor edit = prefs.edit();
                                 edit.putString("SESSION_ID", s_id);
                                 edit.apply();
+                                edit.putString("SESSION_STATE", "false");
+                                edit.apply();
                                 edit.putBoolean("ADMIN",false);
                                 edit.commit();
                                 progress.hide();

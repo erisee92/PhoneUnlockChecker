@@ -13,15 +13,11 @@
         android:textSize="@dimen/fab_size_normal"/>
 
 
-    <GridView
-        android:id="@+id/sessionlist"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:columnWidth="5dp"
-        android:numColumns="2"
-        android:verticalSpacing="0dp"
-        android:horizontalSpacing="0dp"
-        android:stretchMode="columnWidth"/>
+        android:layout_height="324dp"
+        android:id="@+id/teilnehmerlist" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -30,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sessioncontrol_1"
-            android:id="@+id/sessionbutton"
+            android:id="@+id/startbutton"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/deletegroup"
-            android:id="@+id/deletegroup"
+            android:id="@+id/deletebutton"
             android:layout_marginStart="28dp"
             android:layout_gravity="center_horizontal" />
 
