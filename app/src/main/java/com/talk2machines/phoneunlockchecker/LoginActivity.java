@@ -109,12 +109,7 @@ public class LoginActivity extends AppCompatActivity{
                             intent.setClass(LoginActivity.this, ListActivity.class);
                             startActivity(intent);
 
-                            //TODO move next block to other activity or service
-                            PackageManager pm  = LoginActivity.this.getPackageManager();
-                            ComponentName componentName = new ComponentName(LoginActivity.this, UnlockReceiver.class);
-                            pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                    PackageManager.DONT_KILL_APP);
-                            Toast.makeText(getApplicationContext(), "activated", Toast.LENGTH_LONG).show();
+
 
                             finish();
 

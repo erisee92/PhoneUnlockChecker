@@ -105,15 +105,23 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onSuccess(JSONArray result) {
                 Log.i("List",result.toString());
+                try {
+                    if(result.getJSONObject(0).getString("name")!= null && !result.getJSONObject(0).getString("name").isEmpty()){
+                        ArrayList<Session> arrayOfSessions = new ArrayList<Session>();
 
-                ArrayList<Session> arrayOfSessions = new ArrayList<Session>();
+                        SessionAdapter adapter = new SessionAdapter(getApplicationContext(), arrayOfSessions);
+                        gl.setAdapter(adapter);
 
-                SessionAdapter adapter = new SessionAdapter(getApplicationContext(), arrayOfSessions);
-                gl.setAdapter(adapter);
+                        ArrayList<Session> newSessions = Session.fromJson(result);
+                        adapter.addAll(newSessions);
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    gl.setAdapter(null);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
 
-                ArrayList<Session> newSessions = Session.fromJson(result);
-                adapter.addAll(newSessions);
-                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -155,22 +163,15 @@ public class ListActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor edit = prefs.edit();
                     edit.remove("LOG_ID");
+                    edit.apply();
+                    edit.remove("LOG_NAME");
+                    edit.apply();
+                    edit.remove("LOG_USERNAME");
                     edit.commit();
 
                     Intent intent = new Intent();
                     intent.setClass(ListActivity.this, LoginActivity.class);
                     startActivity(intent);
-
-                    //TODO move next block to other activity or service
-                    PackageManager pm = ListActivity.this.getPackageManager();
-                    ComponentName componentName = new ComponentName(ListActivity.this, UnlockReceiver.class);
-                    pm.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP);
-                    Toast.makeText(getApplicationContext(), "cancelled", Toast.LENGTH_LONG).show();
-                    edit = prefs.edit();
-                    edit.putInt("NUM_UNLOCKS",0);
-                    edit.commit();
-
 
                     finish();
                 } catch (JSONException e) {

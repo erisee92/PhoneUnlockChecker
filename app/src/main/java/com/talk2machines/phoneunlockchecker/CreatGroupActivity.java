@@ -86,14 +86,14 @@ public class CreatGroupActivity extends AppCompatActivity{
 
                     try {
                         sessionid = result.getString("id");
-                        //test ob ein userid zurückbekommen, wenn ja, speichern userid in sharePreferences, und leitet zu ListActivity
+                        //test ob ein sessionid zurückbekommen, wenn ja, speichern sessionid in sharePreferences, und leitet zu SessionActivity
                         if(sessionid !=  null ){
                             Log.i("CreatGroup", sessionid);
                             prefs = getSharedPreferences("PUC", 0);
                             SharedPreferences.Editor edit = prefs.edit();
+                            edit.putBoolean("ADMIN",true);
+                            edit.apply();
                             edit.putString("SESSION_ID", sessionid);
-
-
                             edit.commit();
 
                             Intent intent = new Intent();
