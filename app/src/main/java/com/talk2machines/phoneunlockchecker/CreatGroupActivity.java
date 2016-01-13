@@ -91,7 +91,9 @@ public class CreatGroupActivity extends AppCompatActivity{
                             Log.i("CreatGroup", sessionid);
                             prefs = getSharedPreferences("PUC", 0);
                             SharedPreferences.Editor edit = prefs.edit();
-                            edit.putBoolean("ADMIN",true);
+                            edit.putBoolean("ADMIN", true);
+                            edit.apply();
+                            edit.putString("SESSION_STATE", "false");
                             edit.apply();
                             edit.putString("SESSION_ID", sessionid);
                             edit.commit();

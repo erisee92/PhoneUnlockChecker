@@ -102,7 +102,6 @@ public class LoginActivity extends AppCompatActivity{
                             edit.putString("LOG_USERNAME", username);
                             edit.apply();
                             edit.putString("LOG_NAME", name);
-
                             edit.commit();
 
                             Intent intent = new Intent();
