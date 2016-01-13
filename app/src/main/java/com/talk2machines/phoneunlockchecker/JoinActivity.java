@@ -81,6 +81,9 @@ public class JoinActivity extends AppCompatActivity {
                                 progress.hide();
                                 Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("s_id",s_id);
+                                intent.putExtras(bundle);
                                 intent.setClass(JoinActivity.this, SessionActivity.class);
                                 startActivity(intent);
                             } else if(response.equals("Wrong Password")){

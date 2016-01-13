@@ -99,6 +99,10 @@ public class CreatGroupActivity extends AppCompatActivity{
                             edit.commit();
 
                             Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("s_id",sessionid);
+                            bundle.putString("s_state","false");
+                            intent.putExtras(bundle);
                             intent.setClass(CreatGroupActivity.this, SessionActivity.class);
                             startActivity(intent);
 
