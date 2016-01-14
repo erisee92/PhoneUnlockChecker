@@ -184,7 +184,7 @@ public class Session {
         return jObj;
     }
 
-    public static JSONObject login(final String reg_id,final String id, final String name, final String pw, Context mContext, final VolleyCallback2 callback) {
+    public static JSONObject login(final String reg_id,final String id, final String name, final String username, final String pw, Context mContext, final VolleyCallback2 callback) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(mContext);
         String url ="http://test-erik-boege.c9.io/sessions/"+id+"/users";
@@ -227,6 +227,7 @@ public class Session {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
+                params.put("username", username);
                 params.put("password", pw);
                 params.put("reg_id", reg_id);
                 return params;

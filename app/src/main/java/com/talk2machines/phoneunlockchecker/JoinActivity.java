@@ -60,7 +60,7 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progress.show();
-                Session.login(prefs.getString("REG_ID", ""),s_id, prefs.getString("LOG_NAME", ""), textPW.getText().toString(), getApplicationContext(), new Session.VolleyCallback2() {
+                Session.login(prefs.getString("REG_ID", ""),s_id, prefs.getString("LOG_NAME", ""),prefs.getString("LOG_USERNAME", ""), textPW.getText().toString(), getApplicationContext(), new Session.VolleyCallback2() {
                     @Override
                     public void onSuccess(JSONObject result) {
                         Log.i("Login", result.toString());
@@ -180,5 +180,8 @@ public class JoinActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
 

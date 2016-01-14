@@ -1,5 +1,6 @@
 package com.talk2machines.phoneunlockchecker;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.talk2machines.phoneunlockchecker.api.Session;
+import com.talk2machines.phoneunlockchecker.api.SessionUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,7 +114,7 @@ public class SessionActivity extends AppCompatActivity {
         });
 
 
-        Session.getSession(s_id, getApplicationContext(), new Session.VolleyCallback(){
+        Session.getSession(s_id, getApplicationContext(), new Session.VolleyCallback() {
 
             @Override
             public void onSuccess(JSONObject result) {
@@ -120,30 +123,21 @@ public class SessionActivity extends AppCompatActivity {
                     String admin = result.getString("admin");
                     JSONArray userlist = result.getJSONArray("users");
 
-                    TextView ad = (TextView)findViewById(R.id.sessionadmin);
+                    TextView ad = (TextView) findViewById(R.id.sessionadmin);
 
                     ad.setText(admin);
 
-                    ListView glist = (ListView)findViewById(R.id.teilnehmerlist);
+                    ListView glist = (ListView) findViewById(R.id.teilnehmerlist);
 
-                    ArrayList<String> ulist = new ArrayList<String>();
-                    for(int i = 0; i < userlist.length(); i++){
-                        ulist.add(userlist.getJSONObject(i).getString("name"));
-                    }
+                    ArrayList<SessionUser> arrayOfSessions = new ArrayList<SessionUser>();
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                            android.R.layout.simple_list_item_1, ulist){
-
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-                            View view = super.getView(position, convertView, parent);
-                            TextView text = (TextView) view.findViewById(android.R.id.text1);
-                            text.setTextColor(Color.BLACK);
-                            return view;
-                        }
-                    };
-
+                    userListInSessionAdapter adapter = new userListInSessionAdapter(getApplicationContext(),arrayOfSessions);
                     glist.setAdapter(adapter);
+
+                    ArrayList<SessionUser> newSessionUsers = SessionUser.fromJson(userlist);
+                    adapter.addAll(newSessionUsers);
+
+
 
 
 
@@ -160,20 +154,8 @@ public class SessionActivity extends AppCompatActivity {
         });
 
 
-
-/*
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(ListActivity.this, CreatGroupActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        */
-
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -185,4 +167,33 @@ public class SessionActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+}
+
+class userListInSessionAdapter extends ArrayAdapter<SessionUser> {
+
+    public userListInSessionAdapter(Context context, ArrayList<SessionUser> sessionUsers) {
+        super(context, 0, sessionUsers);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent){
+        SessionUser sessionUser = getItem(position);
+        if(convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user_session, parent, false);
+        }
+        TextView u_name = (TextView) convertView.findViewById(R.id.u_name);
+        TextView u_username = (TextView) convertView.findViewById(R.id.u_username);
+        TextView u_unlocks_zahl = (TextView) convertView.findViewById(R.id.u_unlocks_zahl);
+
+
+        u_name.setText(sessionUser.name);
+        u_username.setText(sessionUser.username);
+        u_unlocks_zahl.setText(sessionUser.unlocks);
+
+
+        return convertView;
+    }
+
 }
