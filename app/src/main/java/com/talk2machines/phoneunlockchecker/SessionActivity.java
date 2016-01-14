@@ -1,6 +1,7 @@
 package com.talk2machines.phoneunlockchecker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.talk2machines.phoneunlockchecker.api.Session;
 import com.talk2machines.phoneunlockchecker.api.SessionUser;
+import com.talk2machines.phoneunlockchecker.api.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -113,6 +117,32 @@ public class SessionActivity extends AppCompatActivity {
             }
         });
 
+        //Block dafür, dass der delete button in sesseionActivity funktioniert, sendet delete Request an server...
+        deletebu.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Session.deleteGroup(prefs.getString("SESSION_ID", ""), getApplicationContext(), new Session.VolleyCallback2() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        try {
+                            if(result.getString("response").equals("Removed Sucessfully")){
+                                Intent intent = new Intent();
+                                intent.setClass(SessionActivity.this, ListActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(JSONObject result) {
+
+                    }
+                });
+            }
+        });
 
         Session.getSession(s_id, getApplicationContext(), new Session.VolleyCallback() {
 
@@ -164,10 +194,63 @@ public class SessionActivity extends AppCompatActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.logout:
+                gruppeAustretten();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+
+    //Block dafür, dass man aus eine gruppe austretten kann. mit logout button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+
+    private void gruppeAustretten() {
+        String username = prefs.getString("LOG_USERNAME", "");
+        String s_id = prefs.getString("SESSION_ID", "");
+
+        JSONObject logout = SessionUser.logout(s_id, username, getApplicationContext(), new SessionUser.VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                Log.i("Logout", result.toString());
+                try {
+                    String response = result.getString("response");
+                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor edit = prefs.edit();
+
+                    edit.remove("SESSION_ID");
+                    edit.apply();
+                    edit.putBoolean("ADMIN", false);
+                    edit.commit();
+
+                    Intent intent = new Intent();
+                    intent.setClass(SessionActivity.this, ListActivity.class);
+                    startActivity(intent);
+
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(JSONObject result) {
+                Log.i("Logout", result.toString());
+                try {
+                    String response = result.getString("response");
+                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 }
 
@@ -195,5 +278,9 @@ class userListInSessionAdapter extends ArrayAdapter<SessionUser> {
 
         return convertView;
     }
+
+
+
+
 
 }
