@@ -212,7 +212,7 @@ public class SessionActivity extends AppCompatActivity {
 
 
     private void gruppeAustretten() {
-        if(prefs.getString("ADMIN","false").equals("true")){
+        if(prefs.getBoolean("ADMIN",false)){
             Toast.makeText(getApplicationContext(), R.string.adminLogout, Toast.LENGTH_SHORT).show();
 
         }else {

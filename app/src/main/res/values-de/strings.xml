@@ -24,5 +24,7 @@
     <string name="logout">Abmelden</string>
     <string name="new_group_error">Bitte Gruppename und Passwort eingeben!</string>
     <string name="ok">OK</string>
-    <string name="adminLogout">Du bist Admin. Bitte lösche die Gruppe.</string>
+    <string name="adminLogout">Sie sind Admin. Bitte löschen Sie die Gruppe.</string>
+    <string name="alreadyInGroup">Sie sind bereits in einer Gruppe.</string>
+    <string name="by">von</string>
 </resources>

@@ -26,5 +26,7 @@
     <string name="ok">OK</string>
     <string name="wrongpw">密码错误</string>
     <string name="adminLogout">管理员身份。 请先删除小组！</string>
+    <string name="alreadyInGroup">您已经在一个小组中活动中！</string>
+    <string name="by">由</string>
 
 </resources>

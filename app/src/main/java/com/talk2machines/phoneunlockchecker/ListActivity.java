@@ -104,7 +104,7 @@ public class ListActivity extends AppCompatActivity {
                         bundle.putString("s_id",sessionIdTV.getText().toString());
                         intent.putExtras(bundle);
                         startActivity(intent);
-                    } else Toast.makeText(getApplicationContext(), "You are already in a group", Toast.LENGTH_SHORT).show();
+                    } else Toast.makeText(getApplicationContext(), R.string.alreadyInGroup, Toast.LENGTH_SHORT).show();
                 }
             }
         });
