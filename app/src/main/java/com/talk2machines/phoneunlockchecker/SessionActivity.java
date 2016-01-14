@@ -212,44 +212,49 @@ public class SessionActivity extends AppCompatActivity {
 
 
     private void gruppeAustretten() {
-        String username = prefs.getString("LOG_USERNAME", "");
-        String s_id = prefs.getString("SESSION_ID", "");
+        if(prefs.getString("ADMIN","false").equals("true")){
+            Toast.makeText(getApplicationContext(), R.string.adminLogout, Toast.LENGTH_SHORT).show();
 
-        JSONObject logout = SessionUser.logout(s_id, username, getApplicationContext(), new SessionUser.VolleyCallback() {
-            @Override
-            public void onSuccess(JSONObject result) {
-                Log.i("Logout", result.toString());
-                try {
-                    String response = result.getString("response");
-                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-                    SharedPreferences.Editor edit = prefs.edit();
+        }else {
+            String username = prefs.getString("LOG_USERNAME", "");
+            String s_id = prefs.getString("SESSION_ID", "");
 
-                    edit.remove("SESSION_ID");
-                    edit.apply();
-                    edit.putBoolean("ADMIN", false);
-                    edit.commit();
+            JSONObject logout = SessionUser.logout(s_id, username, getApplicationContext(), new SessionUser.VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    Log.i("Logout", result.toString());
+                    try {
+                        String response = result.getString("response");
+                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                        SharedPreferences.Editor edit = prefs.edit();
 
-                    Intent intent = new Intent();
-                    intent.setClass(SessionActivity.this, ListActivity.class);
-                    startActivity(intent);
+                        edit.remove("SESSION_ID");
+                        edit.apply();
+                        edit.putBoolean("ADMIN", false);
+                        edit.commit();
 
-                    finish();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        Intent intent = new Intent();
+                        intent.setClass(SessionActivity.this, ListActivity.class);
+                        startActivity(intent);
+
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onError(JSONObject result) {
-                Log.i("Logout", result.toString());
-                try {
-                    String response = result.getString("response");
-                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                @Override
+                public void onError(JSONObject result) {
+                    Log.i("Logout", result.toString());
+                    try {
+                        String response = result.getString("response");
+                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 }
