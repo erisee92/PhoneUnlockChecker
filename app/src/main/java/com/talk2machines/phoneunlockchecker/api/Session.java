@@ -32,6 +32,7 @@ public class Session {
     public String id;
     public String password;
     public String reg_id;
+    public String state;
 
     public Session() {
 
@@ -52,6 +53,7 @@ public class Session {
             this.name = object.getString("name");
             this.admin = object.getString("admin");
             this.id = object.getString("id");
+            this.state = Boolean.toString(object.getBoolean("state"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

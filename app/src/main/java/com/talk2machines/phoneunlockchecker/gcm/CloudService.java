@@ -81,12 +81,11 @@ public class CloudService extends IntentService {
 
 
     private void sendNotification(String msgHead,String msgBody) {
-
-        Bundle args = new Bundle();
-        args.putString("msgHead", msgHead);
-        args.putString("msgBody", msgBody);
         Intent session = new Intent(this, SessionActivity.class);
-        session.putExtra("INFO", args);
+        Bundle bundle = new Bundle();
+        bundle.putString("s_id", prefs.getString("SESSION_ID", ""));
+        bundle.putString("s_state",prefs.getString("SESSION_STATE","false"));
+        session.putExtras(bundle);
         notification = new NotificationCompat.Builder(this);
         notification.setContentText(msgBody);
         notification.setContentTitle(msgHead);
@@ -109,6 +108,10 @@ public class CloudService extends IntentService {
         pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
         //Toast.makeText(getApplicationContext(), "activated", Toast.LENGTH_LONG).show();
+        SharedPreferences.Editor edit;
+        edit = prefs.edit();
+        edit.putString("SESSION_STATE","true");
+        edit.commit();
     }
 
     private void stopUnlockReciever(){
@@ -121,6 +124,8 @@ public class CloudService extends IntentService {
         SharedPreferences.Editor edit;
         edit = prefs.edit();
         edit.putInt("NUM_UNLOCKS",0);
+        edit.apply();
+        edit.putString("SESSION_STATE","false");
         edit.commit();
     }
 

@@ -84,16 +84,28 @@ public class ListActivity extends AppCompatActivity {
         gl.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(ListActivity.this, JoinActivity.class);
 
                 TextView sessionIdTV = (TextView)view.findViewById(R.id.s_id);
+                TextView sessionState = (TextView)view.findViewById(R.id.s_state);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("s_id",sessionIdTV.getText().toString());
-
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if (sessionIdTV.getText().toString().equals(prefs.getString("SESSION_ID",""))){
+                    Intent intent = new Intent();
+                    intent.setClass(ListActivity.this, SessionActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("s_id",sessionIdTV.getText().toString());
+                    bundle.putString("s_state",sessionState.getText().toString());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    if (prefs.getString("SESSION_ID","").equals("") || prefs.getString("SESSION_ID","").isEmpty()){
+                        Intent intent = new Intent();
+                        intent.setClass(ListActivity.this, JoinActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("s_id",sessionIdTV.getText().toString());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    } else Toast.makeText(getApplicationContext(), "You are already in a group", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -167,6 +179,10 @@ public class ListActivity extends AppCompatActivity {
                     edit.remove("LOG_NAME");
                     edit.apply();
                     edit.remove("LOG_USERNAME");
+                    edit.apply();
+                    edit.remove("SESSION_ID");
+                    edit.apply();
+                    edit.putBoolean("ADMIN",false);
                     edit.commit();
 
                     Intent intent = new Intent();
@@ -254,10 +270,12 @@ class SessionAdapter extends ArrayAdapter<Session> {
         TextView sName = (TextView) convertView.findViewById(R.id.s_name);
         TextView sAdmin = (TextView) convertView.findViewById(R.id.s_admin);
         TextView sId = (TextView) convertView.findViewById(R.id.s_id);
+        TextView sState = (TextView) convertView.findViewById(R.id.s_state);
 
         sName.setText(session.name);
         sAdmin.setText(session.admin);
         sId.setText(session.id);
+        sState.setText(session.state);
 
         return convertView;
     }

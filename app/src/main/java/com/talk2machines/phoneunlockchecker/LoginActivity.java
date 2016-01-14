@@ -106,10 +106,8 @@ public class LoginActivity extends AppCompatActivity{
 
                             Intent intent = new Intent();
                             intent.setClass(LoginActivity.this, ListActivity.class);
+                            progress.hide();
                             startActivity(intent);
-
-
-
                             finish();
 
                         }
