@@ -29,6 +29,7 @@ public class Session {
 
     public String name;
     public String admin;
+    public String adminusername;
     public String id;
     public String password;
     public String reg_id;
@@ -39,9 +40,10 @@ public class Session {
     }
 
     //Struktur für new group
-    public Session(String groupname,String Password, String adminname, String reg_id){
+    public Session(String groupname,String Password, String adminname, String adminusername, String reg_id){
         this.name = groupname;
         this.admin = adminname;
+        this.adminusername = adminusername;
         this.password = Password;
         this.reg_id = reg_id;
         Log.i("API",name+" "+admin+" "+password +" "+reg_id);
@@ -175,6 +177,7 @@ public class Session {
                 params.put("name", name);
                 params.put("password", password);
                 params.put("admin",admin);
+                params.put("adminusername",adminusername);
                 params.put("reg_id",reg_id);
                 return params;
             }

@@ -118,18 +118,17 @@ public class ListActivity extends AppCompatActivity {
             public void onSuccess(JSONArray result) {
                 Log.i("List",result.toString());
                 try {
-                    if(!result.getJSONObject(0).getString("response").equals("No Groups Created")){
-                        if(result.getJSONObject(0).getString("name")!= null && !result.getJSONObject(0).getString("name").isEmpty()) {
-                            ArrayList<Session> arrayOfSessions = new ArrayList<Session>();
+                    if(result.getJSONObject(0).getString("name")!= null && !result.getJSONObject(0).getString("name").isEmpty()) {
+                        ArrayList<Session> arrayOfSessions = new ArrayList<Session>();
 
-                            SessionAdapter adapter = new SessionAdapter(getApplicationContext(), arrayOfSessions);
-                            gl.setAdapter(adapter);
+                        SessionAdapter adapter = new SessionAdapter(getApplicationContext(), arrayOfSessions);
+                        gl.setAdapter(adapter);
 
-                            ArrayList<Session> newSessions = Session.fromJson(result);
-                            adapter.addAll(newSessions);
-                            mSwipeRefreshLayout.setRefreshing(false);
-                        }
+                        ArrayList<Session> newSessions = Session.fromJson(result);
+                        adapter.addAll(newSessions);
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     gl.setAdapter(null);

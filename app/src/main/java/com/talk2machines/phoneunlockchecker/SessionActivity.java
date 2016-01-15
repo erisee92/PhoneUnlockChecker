@@ -150,7 +150,7 @@ public class SessionActivity extends AppCompatActivity {
             public void onSuccess(JSONObject result) {
                 Log.i("Join", result.toString());
                 try {
-                    String admin = result.getString("admin");
+                    String admin = result.getString("name")+ ' '+ getString(R.string.by) +' '+result.getString("admin");
                     JSONArray userlist = result.getJSONArray("users");
 
                     TextView ad = (TextView) findViewById(R.id.sessionadmin);

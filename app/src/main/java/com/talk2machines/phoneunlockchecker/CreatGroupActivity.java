@@ -70,7 +70,7 @@ public class CreatGroupActivity extends AppCompatActivity{
         } else {
             progress.show();
 
-            Session newGroup = new Session(new_group_name.getText().toString().trim(),group_pa.getText().toString().trim(), prefs.getString("LOG_NAME",""), prefs.getString("REG_ID",""));
+            Session newGroup = new Session(new_group_name.getText().toString().trim(),group_pa.getText().toString().trim(), prefs.getString("LOG_NAME",""), prefs.getString("LOG_USERNAME",""), prefs.getString("REG_ID",""));
 
             newGroup.createNewGroup(getApplicationContext(), new Session.VolleyCallback2() {
                 @Override

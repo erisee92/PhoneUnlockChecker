@@ -10,7 +10,8 @@
         android:text="Admin"
         android:id="@+id/sessionadmin"
         android:layout_marginTop="10dp"
-        android:textSize="@dimen/fab_size_normal"/>
+        android:textIsSelectable="true"
+        android:textSize="@dimen/abc_text_size_display_1_material" />
 
 
     <ListView
