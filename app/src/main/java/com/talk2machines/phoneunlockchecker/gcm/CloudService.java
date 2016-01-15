@@ -18,6 +18,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.talk2machines.phoneunlockchecker.ListActivity;
 import com.talk2machines.phoneunlockchecker.R;
 import com.talk2machines.phoneunlockchecker.SessionActivity;
 import com.talk2machines.phoneunlockchecker.UnlockReceiver;
@@ -64,12 +65,25 @@ public class CloudService extends IntentService {
                     msgBody = extras.getString("msgBody");
 
                     if(!prefs.getString("LOG_ID", "").isEmpty()){
-                        if(msgType.equals("started")){
-                            startUnlockReciever();
-                        } else if(msgType.equals("stopped")){
-                            stopUnlockReciever();
+                        switch (msgType) {
+                            case "started":
+                                startUnlockReciever();
+                                sendNotification(msgHead, msgBody);
+                                break;
+                            case "stopped":
+                                stopUnlockReciever();
+                                sendNotification(msgHead, msgBody);
+                                break;
+                            case "delete":
+                                SharedPreferences.Editor edit = prefs.edit();
+                                edit.remove("SESSION_ID");
+                                edit.apply();
+                                edit.putBoolean("ADMIN", false);
+                                edit.commit();
+                                sendDeleteNotification(msgHead, msgBody);
+                                break;
                         }
-                        sendNotification(msgHead, msgBody);
+
                     }
                 Log.i("GCMService", "Received: " + extras.getString("msgBody"));
             }
@@ -86,6 +100,23 @@ public class CloudService extends IntentService {
         bundle.putString("s_id", prefs.getString("SESSION_ID", ""));
         bundle.putString("s_state",prefs.getString("SESSION_STATE","false"));
         session.putExtras(bundle);
+        notification = new NotificationCompat.Builder(this);
+        notification.setContentText(msgBody);
+        notification.setContentTitle(msgHead);
+        notification.setTicker("New Message !");
+        notification.setSmallIcon(R.mipmap.ic_launcher);
+        notification.setDefaults(Notification.DEFAULT_VIBRATE);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 1000,
+                session, PendingIntent.FLAG_CANCEL_CURRENT);
+        notification.setContentIntent(contentIntent);
+        notification.setAutoCancel(true);
+        manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, notification.build());
+    }
+
+    private void sendDeleteNotification(String msgHead,String msgBody) {
+        Intent session = new Intent(this, ListActivity.class);
         notification = new NotificationCompat.Builder(this);
         notification.setContentText(msgBody);
         notification.setContentTitle(msgHead);

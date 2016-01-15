@@ -23,4 +23,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="wrongpw">Wrong Password</string>
+    <string name="adminLogout">You are Admin. Please remove this group!</string>
+    <string name="by">by</string>
+    <string name="alreadyInGroup">You are already in a group</string>
 </resources>

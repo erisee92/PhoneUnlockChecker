@@ -18,9 +18,13 @@
     <string name="app_name_login">Anmelden</string>
     <string name="app_name_newGroup">Neu Gruppe anlegen</string>
     <string name="app_name_session">Los geht´s</string>
-    <string name="logout">Logout</string>
     <string name="loading">Lade…</string>
-    <string name="ok">ok</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Abbrechen</string>
     <string name="wrongpw">Falsches Passwort</string>
+    <string name="logout">Abmelden</string>
+    <string name="new_group_error">Bitte Gruppename und Passwort eingeben!</string>
+    <string name="ok">OK</string>
+    <string name="adminLogout">Sie sind Admin. Bitte löschen Sie die Gruppe.</string>
+    <string name="alreadyInGroup">Sie sind bereits in einer Gruppe.</string>
+    <string name="by">von</string>
 </resources>
