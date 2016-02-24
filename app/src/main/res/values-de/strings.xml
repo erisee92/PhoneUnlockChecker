@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Phone Checker</string>
+    <string name="join_description">Gruppe beitreten</string>
+    <string name="creat_description">Neue Gruppe</string>
+    <string name="username">Nutzername</string>
+    <string name="name">Name</string>
+    <string name="login">Anmelden</string>
+    <string name="groupname">Gruppenname</string>
+    <string name="password">Passwort</string>
+    <string name="newgroupname">Neue Gruppe</string>
+    <string name="sessioncontrol_1">Starten</string>
+    <string name="sessioncontrol_2">Stoppen</string>
+    <string name="deletegroup">Löschen</string>
+    <string name="loginerror">Bitte Name und Nutzername eingeben!</string>
+    <string name="app_name_join">an Gruppe teilnehmen</string>
+    <string name="app_name_list">Aktive Gruppe</string>
+    <string name="app_name_login">Anmelden</string>
+    <string name="app_name_newGroup">Neu Gruppe anlegen</string>
+    <string name="app_name_session">Los geht´s</string>
+    <string name="loading">Lade…</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="wrongpw">Falsches Passwort</string>
+    <string name="logout">Abmelden</string>
+    <string name="new_group_error">Bitte Gruppename und Passwort eingeben!</string>
+    <string name="ok">OK</string>
+    <string name="adminLogout">Sie sind Admin. Bitte löschen Sie die Gruppe.</string>
+    <string name="alreadyInGroup">Sie sind bereits in einer Gruppe.</string>
+    <string name="by">von</string>
+</resources>

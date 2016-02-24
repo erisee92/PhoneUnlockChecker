@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:orientation="vertical" android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Admin"
+        android:id="@+id/sessionadmin"
+        android:layout_marginTop="10dp"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/abc_text_size_display_1_material" />
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="324dp"
+        android:id="@+id/teilnehmerlist" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sessioncontrol_2"
+            android:id="@+id/startbutton"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deletegroup"
+            android:id="@+id/deletebutton"
+            android:layout_marginStart="28dp"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

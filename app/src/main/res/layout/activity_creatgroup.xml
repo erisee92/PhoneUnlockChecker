@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/newgroupname"
+        android:ems="10"
+        android:id="@+id/new_group_name"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:ems="10"
+        android:id="@+id/group_password"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/new_group_name"
+        android:layout_alignStart="@+id/new_group_name"
+        android:inputType="textPassword" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creat_description"
+        android:id="@+id/newGroup"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/group_password"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

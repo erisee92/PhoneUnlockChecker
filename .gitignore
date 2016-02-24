@@ -1,7 +1,6 @@
 
 # Created by https://www.gitignore.io/api/indows,android,gradle,intellij
 
-#!! ERROR: indows is undefined. Use list command to see defined gitignore types !!#
 
 ### Android ###
 # Built application files
@@ -106,3 +105,5 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+/volley

@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">Phone Unlock Checker</string>
+    <string name="app_name">Phone Checker</string>
+    <string name="app_name_login">Login</string>
+    <string name="app_name_list">Current Group</string>
+    <string name="app_name_join">Join Group</string>
+    <string name="app_name_newGroup">New Group</string>
+    <string name="app_name_session">We are running</string>
+    <string name="join_description">Join Group</string>
+    <string name="creat_description">New Group</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="login">Login</string>
+    <string name="groupname">Groupename</string>
+    <string name="password">Password</string>
+    <string name="newgroupname">New Groupname</string>
+    <string name="sessioncontrol_1">Start</string>
+    <string name="sessioncontrol_2">Stop</string>
+    <string name="deletegroup">Delete</string>
+    <string name="loginerror">please enter name and username!</string>
+    <string name="new_group_error">please enter Group name and password!</string>
+    <string name="logout">Logout</string>
+    <string name="loading">Loading…</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="wrongpw">Wrong Password</string>
+    <string name="adminLogout">You are Admin. Please remove this group!</string>
+    <string name="by">by</string>
+    <string name="alreadyInGroup">You are already in a group</string>
 </resources>

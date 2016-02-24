@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.talk2machines.phoneunlockchecker">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <permission android:name="com.talk2machines.phoneunlockchecker.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.talk2machines.phoneunlockchecker.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +24,68 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CreatGroupActivity"
+            android:parentActivityName=".ListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.talk2machines.phoneunlockchecker.ListActivity" />
+        </activity>
+
+        <activity android:name=".JoinActivity"
+            android:parentActivityName=".ListActivity"
+            android:windowSoftInputMode="adjustPan">
+
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.talk2machines.phoneunlockchecker.ListActivity" />
+        </activity>
+
+        <activity android:name=".ListActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SessionActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.talk2machines.phoneunlockchecker.ListActivity" />
+        </activity>
+
+
+        <receiver android:name=".UnlockReceiver"
+            android:enabled="false">
+            <intent-filter
+                android:enabled="false">
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".NumberUnlocks"
+            android:parentActivityName=".ListActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.talk2machines.phoneunlockchecker.ListActivity" />
+        </activity>
+
+        <service
+            android:name=".gcm.CloudService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".gcm.CloudReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,0 +1,8 @@
+Shared Preferences Store Name: PUC
+GCM Device ID:          REG_ID
+User ID on Server:      LOG_ID
+Username:               LOG_USERNAME
+Name:                   LOG_NAME
+Number off Unlocks:     NUM_UNLOCKS
+Session ID on Server:   SESSION_ID
+Session Admin (bool):   ADMIN
